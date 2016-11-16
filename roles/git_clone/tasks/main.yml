@@ -6,6 +6,17 @@
     accept_hostkey: yes
     key_file: /Users/talhakhan/Hackaton/TAG.pem
   become_user: admin
+  
+- name: Install latest npm.
+ npm:
+   path: /home/admin/Hackaton
+   production: yes
+
+
+- name: ensure Node packages are present
+ npm: name={{ item }} global=yes path=/home/admin/Hackaton
+ with_items:
+   - node-sass
 
 #- name: Install packages based on package.json.
 #  npm: path=/home/admin/Hackaton

@@ -1,0 +1,10 @@
+---
+- name: node.js | Check existing version.
+  command: node --version
+  register: installed_version
+  failed_when: no
+
+- name: node.js | Install Node.js.
+  command: "/tmp/nave.sh usemain {{ nodejs_version }}"
+  when: (installed_version.stdout is undefined) or (installed_version.stdout != nodejs_version)
+  become: yes

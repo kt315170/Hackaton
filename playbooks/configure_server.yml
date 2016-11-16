@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: yes
+  roles: 
+    - install_git 
+    - install_node
+    - install_mongodb
+    - git_clone
+
+
+
+    
+
+
+

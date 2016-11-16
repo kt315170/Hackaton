@@ -1,0 +1,16 @@
+---
+- name: node.js | Download installer.
+  get_url: dest=/tmp/ url=https://raw.githubusercontent.com/isaacs/nave/master/nave.sh
+  become: yes
+
+- name: node.js | Make installer executable.
+  file: mode=o+x path=/tmp/nave.sh
+  become: yes
+
+- name: curl installe
+  apt: pkg=curl state=latest
+
+- include: install_node.yml
+- include: install_latest_node.yml
+- include: install_npm.yml
+- include: install_pm2.yml

@@ -1,0 +1,11 @@
+---
+- name: Get stuff from git
+  git: 
+    repo: https://github.com/sahat/hackathon-starter.git 
+    dest: /home/admin/Hackaton/
+    accept_hostkey: yes
+    key_file: /Users/talhakhan/Hackaton/TAG.pem
+  become_user: admin
+
+#- name: Install packages based on package.json.
+#  npm: path=/home/admin/Hackaton

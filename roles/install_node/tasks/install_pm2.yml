@@ -1,0 +1,15 @@
+---
+- name: Check existing version of pm2.
+  command: pm2 -v
+  register: installed_pm2_version
+  failed_when: no
+
+- when: (installed_pm2_version.stdout is undefined) or (installed_pm2_version.stdout != pm2_version)
+  become: yes
+  block:
+    - npm:
+        name: pm2
+        global: yes
+        version: "{{ pm2_version }}"
+
+    - command: pm2 update

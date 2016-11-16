@@ -1,0 +1,18 @@
+---
+- name: node.js | Check installed latest version.
+  command: node-latest --version
+  register: installed_latest_version
+  failed_when: no
+
+- when: (installed_latest_version.stdout is undefined) or (installed_latest_version.stdout != 'v' + remote_latest_version.stdout)
+  become: yes
+  block:
+    - command: "/tmp/nave.sh install {{ node_latest_version }}"
+      environment:
+        NAVE_DIR: "{{ nave_dir }}"
+
+    - file:
+        state: link
+        src: "{{ nave_dir }}/installed/{{ node_latest_version }}/bin/node"
+        dest: /usr/local/bin/node-latest
+        mode: 775

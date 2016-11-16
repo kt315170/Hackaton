@@ -1,0 +1,13 @@
+---
+- name: Check installed npm version.
+  command: npm --version
+  register: installed_npm_version
+  failed_when: no
+
+- name: node.js | Install latest npm.
+  npm:
+    name: npm
+    version: "{{ npm_version }}"
+    global: yes
+  become: yes
+  when: (installed_npm_version.stdout is undefined) or (installed_npm_version.stdout != npm_version)
